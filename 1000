@@ -1,0 +1,39 @@
+from graphviz import Digraph
+
+def create_flowchart():
+    # Initialize the flowchart with custom background color
+    flowchart = Digraph(format='png', name='Trading Plan Flowchart')
+    flowchart.attr(bgcolor='white')
+
+    # Add nodes with specific colors
+    flowchart.node('A', 'Account: $1000 (Akhilesh, Target: 100% Return)', shape='box', style='filled', color='blue', fontcolor='white')
+    flowchart.node('B', 'Risk Management: 5% per trade ($50)', shape='box', style='filled', color='purple', fontcolor='white')
+    flowchart.node('C', 'Daily Target: 3.3% ($33)', shape='box', style='filled', color='blue', fontcolor='white')
+    flowchart.node('D', 'Assets: Gold (XAU/USD) and BTC/USD', shape='ellipse', style='filled', color='purple', fontcolor='white')
+    flowchart.node('E', 'Example Trade 1: Gold', shape='ellipse', style='dotted', color='blue', fontcolor='white')
+    flowchart.node('F', '''Buy at 1900
+SL: 1898, TP: 1904''', shape='plaintext')
+    flowchart.node('G', 'Example Trade 2: BTC/USD', shape='ellipse', style='dotted', color='blue', fontcolor='white')
+    flowchart.node('H', '''Buy at 18,500
+SL: 18,300, TP: 18,900''', shape='plaintext')
+    flowchart.node('I', 'Expected Outcome: $2000 (100% Return)', shape='box', style='filled', color='purple', fontcolor='white')
+
+    # Connect nodes
+    flowchart.edges([
+        ('A', 'B'),
+        ('B', 'C'),
+        ('C', 'D'),
+        ('D', 'E'),
+        ('D', 'G'),
+        ('E', 'F'),
+        ('G', 'H'),
+        ('C', 'I')
+    ])
+
+    # Save and render the flowchart
+    try:
+        flowchart.render(filename='Trading_Plan_Flowchart', cleanup=True)
+    except OSError as e:
+        print("Rendering not supported in this environment. Please run the script locally.")
+
+create_flowchart()
